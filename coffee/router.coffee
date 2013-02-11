@@ -1,28 +1,18 @@
-define ['jquery', 'underscore', 'backbone', 'accordionView'], 
+define ['jquery', 'underscore', 'backbone', 'accordionView'],
 	($, _, Backbone, AccordionView) ->
-  
+
 		AppRouter = Backbone.Router.extend
-			routes: 
-				'all': 'expandAll',
+			routes:
 				'*actions': 'defaultAction'
 
-		initialize = -> 
+		initialize = ->
 			app_router = new AppRouter;
-
-			app_router.on 'route:expandAll', () ->
-				console.info 'expandAll'
-				###
-				contributorsView = new ContributorsView()
-				###
 
 			app_router.on 'route:defaultAction', (actions) ->
 				console.info 'default'
-				accordionView = new AccordionView()
-				###
-				homeView = new HomeView()
-				do homeView.render
-				footerView = new FooterView()
-				###
+				accordionView = new AccordionView
+					el: '#main'
+					heading: 'h2'
 
 			Backbone.history.start();
 

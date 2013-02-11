@@ -4,14 +4,34 @@
   define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
     var AccordionView;
     return AccordionView = Backbone.View.extend({
-      el: $('#main'),
       initialize: function() {
         console.info('[AccordionView initialize]');
-        _.bindAll(this, 'render');
-        return this.render();
+        _.bindAll(this);
+        this.render();
+        return this;
+      },
+      events: Modernizr.touch ? {
+        'touchstart h2': 'toggleChild'
+      } : {
+        'click h2': 'toggleChild'
       },
       render: function() {
-        return $(this.el).append('[AccordionView render]');
+        var $b, $bellows, b, _i, _len;
+        console.info('[AccordionView render]');
+        $bellows = $('h2').nextAll().andSelf();
+        for (_i = 0, _len = $bellows.length; _i < _len; _i++) {
+          b = $bellows[_i];
+          $b = $(b);
+          if ($b.prop('tagName') === 'H2') {
+            console.info($b.nextUntil('h2').wrapAll('<div style="color: olive" />'));
+          }
+        }
+        return this;
+      },
+      toggleChild: function() {
+        event.preventDefault();
+        $(event.target).next('div').toggle();
+        return this;
       }
     });
   });
