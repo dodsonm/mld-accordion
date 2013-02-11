@@ -25,7 +25,7 @@ define ['jquery','underscore','backbone'], ($, _, Backbone) ->
 
 		render: ->
 			console.info '[AccordionView render]'
-			$bellows = $(key).nextAll().andSelf()
+			$bellows = $(@key).nextAll().andSelf()
 
 			for b in $bellows
 				$b = $ b
